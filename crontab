@@ -1,0 +1,1 @@
+00 02 * * * archvsync /bin/bash ftpsync/bin/ftpsync sync:all

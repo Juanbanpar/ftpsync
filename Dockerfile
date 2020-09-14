@@ -15,18 +15,20 @@ RUN adduser \
     archvsync
 
 RUN mkdir -p /srv/mirrors/
+RUN chown -R archvsync: /srv/mirrors
 VOLUME ["/srv/mirrors"]
 
 RUN mkdir -p /opt/Juanbanpar/
 WORKDIR /opt/Juanbanpar/
 RUN git clone https://github.com/Juanbanpar/ftpsync.git
 RUN chown -R archvsync:archvsync ./ftpsync
-WORKDIR /
-RUN chown -R archvsync:archvsync /srv/mirrors
-WORKDIR /opt/Juanbanpar/ftpsync/bin
+WORKDIR /opt/Juanbanpar/ftpsync/bin/
 RUN chmod +x ./ftpsync
 
-#ENV PATH /opt/Juanbanpar/archvsync/bin:${PATH}
+ADD crontab /etc/cron.d/simple-cron
+RUN chmod 0644 /etc/cron.d/simple-cron
 
-#CMD ["/bin/bash ftpsync sync:all"]
-# /bin/su -c "/bin/bash archvsync/bin/ftpsync sync:all" - archvsync
+#ENV PATH /opt/Juanbanpar/ftpsync/bin:${PATH}
+
+CMD cron
+#CMD ["/bin/su -c "/bin/bash ftpsync/bin/ftpsync sync:all" - archvsync"]
