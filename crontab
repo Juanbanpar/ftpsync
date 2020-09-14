@@ -1,1 +1,2 @@
-00 02 * * * archvsync /bin/bash ftpsync/bin/ftpsync sync:all
+00 02 * * * archvsync /script.sh
+#Una linea de regalo para que funcione
