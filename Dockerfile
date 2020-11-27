@@ -30,6 +30,7 @@ ADD ftp.gul.es /etc/nginx/sites-available/ftp.gul.es
 RUN ln -s /etc/nginx/sites-available/ftp.gul.es /etc/nginx/sites-enabled/ftp.gul.es
 RUN rm /etc/nginx/sites-available/default
 RUN rm /etc/nginx/sites-enabled/default
+RUN service nginx start
 
 RUN mkdir -p /opt/Juanbanpar/
 WORKDIR /opt/Juanbanpar/
@@ -47,3 +48,6 @@ RUN chmod +x /script.sh
 
 #CMD cron
 #CMD [cron && service nginx restart && "/bin/su -c "/bin/bash ftpsync/bin/ftpsync sync:all" - archvsync"]
+#COPY start.sh start.sh
+#RUN chmod +x start.sh
+#CMD ["./start.sh"]
